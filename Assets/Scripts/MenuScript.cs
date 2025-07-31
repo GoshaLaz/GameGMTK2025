@@ -5,13 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
-    public void TutorialLevel()
+    public GameObject mainPanel;
+    public GameObject settingsPanel;
+
+    public void Level1()
     {
         SceneManager.LoadScene(1);
     }
 
-    public void Level1()
+    public void ActiveSettings()
     {
-        SceneManager.LoadScene(2);
+        mainPanel.SetActive(false);
+        settingsPanel.SetActive(true);
+    }
+    public void ActiveMainPanel()
+    {
+        settingsPanel.SetActive(false);
+        mainPanel.SetActive(true);
     }
 }
