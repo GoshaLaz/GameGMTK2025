@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlayerMove: MonoBehaviour
 {
-    public float moveTime = 0.2f;
-    public LayerMask collisionLayer; 
-    private bool isMoving = false;
+    [SerializeField] public float moveTime = 0.2f;
+    [SerializeField] public LayerMask collisionLayer; 
+    [HideInInspector] public bool isMoving = false;
     private Vector2 input;
-    public float step;
+    [SerializeField] public float step;
 
     void Update()
     {
