@@ -113,6 +113,8 @@ public class RopeAndFance : MonoBehaviour
 
         while (elapsedTime < animationTime)
         {
+            if (ropeRender == null) yield break;
+
             Color newColor = Color.Lerp(start, endColor, elapsedTime / animationTime);
             ropeRender.startColor = newColor;
             ropeRender.endColor = newColor;
