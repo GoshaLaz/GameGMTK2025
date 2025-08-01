@@ -20,6 +20,8 @@ public class RopeAndFance : MonoBehaviour
     [SerializeField] private Color badColorRope;
     [SerializeField] private float animationTime;
 
+    List<List<Vector2>> pointsOfFances = new List<List<Vector2>>();
+
     PlayerMove playerMovementScript;
     bool firstFance;
     LineRenderer ropeRender;
@@ -63,6 +65,9 @@ public class RopeAndFance : MonoBehaviour
                 firstFance = false;
 
                 countOfFances--;
+
+                pointsOfFances.Add(new List<Vector2>());
+                pointsOfFances[pointsOfFances.Count].Add(transform.position + new Vector3(0, 0.25f, 0));
             }
             else if (firstFanceObject != null)
             {
@@ -99,6 +104,8 @@ public class RopeAndFance : MonoBehaviour
                     ropeRender.SetPosition(0, transform.position + new Vector3(0, 0.25f, 0));
 
                     countOfFances--;
+
+                    pointsOfFances[pointsOfFances.Count].Add(transform.position + new Vector3(0, 0.25f, 0));
                 }
             }
         }
