@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class FanceManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private int countOfSheeps;
+
+    Collider2D collider2D;
+
     void Start()
     {
-        
+        collider2D = GetComponent<Collider2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Check()
     {
-        
+        List<Collider2D> results = new List<Collider2D>();
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(LayerMask.GetMask("Wolf"));
+        filter.useLayerMask = true;
+
+        int count = collider2D.OverlapCollider(filter, results);
     }
 }

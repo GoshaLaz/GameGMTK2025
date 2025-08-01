@@ -87,6 +87,9 @@ public class RopeAndFance : MonoBehaviour
                 {
                     ropeRender.SetPosition(1, firstFanceObject.transform.position);
 
+                    ropeRender.startColor = Color.white;
+                    ropeRender.endColor = Color.white;
+
                     ropeRender = null;
                     firstFanceObject = null;
                     firstFance = true;
