@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class RopeAndFance : MonoBehaviour
     [SerializeField] private LayerMask fanceLayer;
 
     [Header("Rope")]
+    [SerializeField] private float ropeLenght;
+    [Space(5)]
     [SerializeField] private Material ropeMaterial;
     [Space(5)]
     [SerializeField] private LayerMask badLayer;
@@ -21,6 +24,8 @@ public class RopeAndFance : MonoBehaviour
     [SerializeField] private float animationTime;
 
     List<List<Vector2>> pointsOfFances = new List<List<Vector2>>();
+
+    FanceManager fanceManager;
 
     PlayerMove playerMovementScript;
     bool firstFance;
@@ -32,6 +37,7 @@ public class RopeAndFance : MonoBehaviour
 
     void Start()
     {
+        fanceManager = GameObject.FindWithTag("FanceManager").GetComponent<FanceManager>();
         playerMovementScript = GetComponent<PlayerMove>();
         firstFance = true;
     }
@@ -40,7 +46,7 @@ public class RopeAndFance : MonoBehaviour
     {
         if (ropeRender != null)
         {
-            ropeRender.SetPosition(1, transform.position);
+            ropeRender.SetPosition(1, transform.position + new Vector3(0, 0.25f, 0));
             if (!isAnimatingColor)
             {
                 if (!canPlaceFance) StartCoroutine(ChangeColor(badColorRope));
@@ -63,6 +69,7 @@ public class RopeAndFance : MonoBehaviour
                 ropeRender.SetPosition(0, transform.position + new Vector3(0, 0.25f, 0));
 
                 firstFance = false;
+                isAnimatingColor = false;
 
                 countOfFances--;
 
@@ -90,13 +97,22 @@ public class RopeAndFance : MonoBehaviour
                     ropeRender.startColor = Color.white;
                     ropeRender.endColor = Color.white;
 
+                    isAnimatingColor = false;
+
                     ropeRender = null;
                     firstFanceObject = null;
                     firstFance = true;
+
+                    fanceManager.Check(pointsOfFances);
                 }
                 else if (countOfFances > 0)
                 {
                     ropeRender.SetPosition(1, transform.position + new Vector3(0, 0.25f, 0));
+
+                    ropeRender.startColor = Color.white;
+                    ropeRender.endColor = Color.white;
+
+                    isAnimatingColor = false;
 
                     GameObject newFance = Instantiate(fanceObject, transform.position + new Vector3(0, 0.25f, 0), Quaternion.identity);
                     newFance.AddComponent<LineRenderer>();
@@ -144,7 +160,21 @@ public class RopeAndFance : MonoBehaviour
     {
         if (ropeRender == null) return true;
 
-        return !Physics2D.Linecast(ropeRender.GetPosition(0), ropeRender.GetPosition(1), badLayer);
+        bool tochThing = Physics2D.Linecast(ropeRender.GetPosition(0), ropeRender.GetPosition(1), badLayer);
+        if (tochThing) return false;
+
+        float currentDistance = 0;
+        foreach (List<Vector2> path in pointsOfFances)
+        {
+            for (int i = 1; i< path.Count; i++)
+            {
+                currentDistance += Vector2.Distance(path[i - 1], path[i]);
+            }
+        }
+
+        currentDistance += Vector2.Distance(ropeRender.GetPosition(0), ropeRender.GetPosition(1));
+
+        return ropeLenght >= currentDistance;
     }
 
     void SetUpLineRender(LineRenderer lineRenderer)
@@ -153,6 +183,8 @@ public class RopeAndFance : MonoBehaviour
         lineRenderer.material = ropeMaterial;
         lineRenderer.positionCount = 2;
         lineRenderer.textureMode = LineTextureMode.Static;
+        lineRenderer.startColor = Color.white;
+        lineRenderer.endColor = Color.white;
     }
 
     private void OnDrawGizmos()

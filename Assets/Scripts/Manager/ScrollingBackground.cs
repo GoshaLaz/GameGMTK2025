@@ -6,15 +6,15 @@ public class ScrollingBackground : MonoBehaviour
 {
     public float scrollSpeed = 0.5f;
 
-    Renderer renderer;
+    Renderer renderArea;
 
     void Start()
     {
-        renderer = GetComponent<Renderer>();
+        renderArea = GetComponent<Renderer>();
     }
 
     void Update()
     {
-        renderer.material.mainTextureOffset = new Vector2(scrollSpeed * Time.time, scrollSpeed * Time.time);
+        renderArea.material.mainTextureOffset = new Vector2(scrollSpeed * Time.time, scrollSpeed * Time.time);
     }
 }
