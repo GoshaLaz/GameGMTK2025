@@ -67,7 +67,7 @@ public class RopeAndFance : MonoBehaviour
                 countOfFances--;
 
                 pointsOfFances.Add(new List<Vector2>());
-                pointsOfFances[pointsOfFances.Count].Add(transform.position + new Vector3(0, 0.25f, 0));
+                pointsOfFances[pointsOfFances.Count - 1].Add(transform.position + new Vector3(0, 0.25f, 0));
             }
             else if (firstFanceObject != null)
             {
@@ -105,7 +105,7 @@ public class RopeAndFance : MonoBehaviour
 
                     countOfFances--;
 
-                    pointsOfFances[pointsOfFances.Count].Add(transform.position + new Vector3(0, 0.25f, 0));
+                    pointsOfFances[pointsOfFances.Count - 1].Add(transform.position + new Vector3(0, 0.25f, 0));
                 }
             }
         }
