@@ -7,8 +7,12 @@ public class PlayerMove: MonoBehaviour
     [SerializeField] public float moveTime = 0.2f;
     [SerializeField] public LayerMask collisionLayer; 
     [HideInInspector] public bool isMoving = false;
-    private Vector2 input;
     [SerializeField] public float step;
+    [Space(5)]
+    [SerializeField] private GameObject playerSprite;
+
+    Vector2 input;
+    bool isFacingRight = true;
 
     void Update()
     {
@@ -20,6 +24,8 @@ public class PlayerMove: MonoBehaviour
 
             if (input != Vector2.zero)
             {
+                if (Mathf.Abs(input.x) > 0) isFacingRight = input.x > 0;
+
                 Vector2 targetPos = (Vector2)transform.position + (input*step);
 
                 if (Physics2D.OverlapCircle(targetPos, 0.1f, collisionLayer) == null)
@@ -34,12 +40,16 @@ public class PlayerMove: MonoBehaviour
     {
         isMoving = true;
 
-        Vector2 start = transform.position;
+        Vector2 startPos = transform.position;
+        Quaternion startRotation = playerSprite.transform.rotation;
+        Quaternion endRotation = (isFacingRight) ? Quaternion.Euler(0, 0, 0) : Quaternion.Euler(0,180,0);
+
         float elapsedTime = 0;
 
         while (elapsedTime < moveTime)
         {
-            transform.position = Vector2.Lerp(start, target, elapsedTime / moveTime);
+            transform.position = Vector2.Lerp(startPos, target, elapsedTime / moveTime);
+            playerSprite.transform.rotation = Quaternion.Lerp(startRotation, endRotation, elapsedTime / moveTime);
             elapsedTime += Time.deltaTime;
             yield return null;
         }

@@ -83,7 +83,7 @@ public class RopeAndFance : MonoBehaviour
                     }
                 }
 
-                if (hasStartFance)
+                if (hasStartFance && pointsOfFances[pointsOfFances.Count - 1].Count > 2)
                 {
                     ropeRender.SetPosition(1, firstFanceObject.transform.position);
 
@@ -144,6 +144,7 @@ public class RopeAndFance : MonoBehaviour
 
     void SetUpLineRender(LineRenderer lineRenderer)
     {
+        lineRenderer.sortingOrder = 3;
         lineRenderer.material = ropeMaterial;
         lineRenderer.positionCount = 2;
         lineRenderer.textureMode = LineTextureMode.Static;
