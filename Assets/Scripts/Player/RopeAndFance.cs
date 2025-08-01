@@ -132,6 +132,8 @@ public class RopeAndFance : MonoBehaviour
             elapsedTime += Time.deltaTime;
         }
 
+        if (ropeRender == null) yield break;
+
         ropeRender.startColor = endColor;
         ropeRender.endColor = endColor;
 
