@@ -28,7 +28,7 @@ public class PlayerMove: MonoBehaviour
 
                 Vector2 targetPos = (Vector2)transform.position + (input*step);
 
-                if (Physics2D.OverlapCircle(targetPos, 0.1f, collisionLayer) == null)
+                if (!Physics2D.Linecast(transform.position, targetPos, collisionLayer))
                 {
                     StartCoroutine(Move(targetPos));
                 }
