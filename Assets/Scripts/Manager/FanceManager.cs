@@ -17,9 +17,17 @@ public class FanceManager : MonoBehaviour
     {
         List<Collider2D> results = new List<Collider2D>();
         ContactFilter2D filter = new ContactFilter2D();
-        filter.SetLayerMask(LayerMask.GetMask("Wolf"));
+        filter.SetLayerMask(LayerMask.GetMask("Wolf","Sheep"));
         filter.useLayerMask = true;
 
         int count = collider2D.OverlapCollider(filter, results);
+
+        foreach (Collider2D hit in results)
+        {
+            if (hit.CompareTag("Wolf"))
+            {
+                Debug.Log("WOLF!");
+            }
+        }
     }
 }
