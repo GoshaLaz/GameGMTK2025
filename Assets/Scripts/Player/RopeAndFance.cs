@@ -23,6 +23,9 @@ public class RopeAndFance : MonoBehaviour
     [SerializeField] private Color badColorRope;
     [SerializeField] private float animationTime;
 
+    [Header("Effects")]
+    [SerializeField] private GameObject buildParticleSystem;
+
     List<List<Vector2>> pointsOfFances = new List<List<Vector2>>();
 
     FanceManager fanceManager;
@@ -60,6 +63,8 @@ public class RopeAndFance : MonoBehaviour
         {
             if (firstFance && countOfFances >= 3)
             {
+                CreateParticleSystem(transform.position);
+
                 firstFanceObject = Instantiate(fanceObject, transform.position + new Vector3(0, 0.25f, 0), Quaternion.identity);
                 firstFanceObject.AddComponent<LineRenderer>();
                 ropeRender = firstFanceObject.GetComponent<LineRenderer>();
@@ -114,6 +119,8 @@ public class RopeAndFance : MonoBehaviour
 
                     isAnimatingColor = false;
 
+                    CreateParticleSystem(transform.position);
+
                     GameObject newFance = Instantiate(fanceObject, transform.position + new Vector3(0, 0.25f, 0), Quaternion.identity);
                     newFance.AddComponent<LineRenderer>();
                     ropeRender = newFance.GetComponent<LineRenderer>();
@@ -128,6 +135,12 @@ public class RopeAndFance : MonoBehaviour
                 }
             }
         }
+    }
+
+    void CreateParticleSystem(Vector2 position)
+    {
+        GameObject newParticleSystem = Instantiate(buildParticleSystem, position, Quaternion.identity);
+        Destroy(newParticleSystem, 10);
     }
 
     IEnumerator ChangeColor(Color endColor)

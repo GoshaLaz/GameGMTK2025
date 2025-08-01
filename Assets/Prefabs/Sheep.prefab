@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3959980504029652925}
   - component: {fileID: 9222279328403923987}
+  - component: {fileID: 3535089043546729448}
   m_Layer: 8
   m_Name: Sheep
   m_TagString: Sheep
@@ -78,6 +79,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9, y: 0.55}
   m_EdgeRadius: 0
+--- !u!95 &3535089043546729448
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854854118640315240}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1baec6df4c69ec0488ee20f0b31fe5b6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8033507084172707708
 GameObject:
   m_ObjectHideFlags: 0

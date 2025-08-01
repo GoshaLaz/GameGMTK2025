@@ -855,7 +855,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: 502611283, guid: 49de910741ecf3b43bbe071c2e227da8, type: 3}
       - {fileID: -1485602907, guid: 49de910741ecf3b43bbe071c2e227da8, type: 3}
-      m_AnimationSpeed: 1.5
+      m_AnimationSpeed: 1.5000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 2, y: -1, z: 0}
@@ -891,7 +891,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: -201503766, guid: 49de910741ecf3b43bbe071c2e227da8, type: 3}
       - {fileID: -741657205, guid: 49de910741ecf3b43bbe071c2e227da8, type: 3}
-      m_AnimationSpeed: 1.5000001
+      m_AnimationSpeed: 1.5
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 2, y: 2, z: 0}
@@ -1282,6 +1282,7 @@ MonoBehaviour:
     m_Bits: 776
   badColorRope: {r: 0.81960785, g: 0.3529412, b: 0.37254903, a: 1}
   animationTime: 0.15
+  buildParticleSystem: {fileID: 5640455758281949845, guid: 832b9b59180367a4fba4b3497018b7d8, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
