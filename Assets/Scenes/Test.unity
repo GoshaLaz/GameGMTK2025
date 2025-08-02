@@ -981,7 +981,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: 379009327, guid: 49de910741ecf3b43bbe071c2e227da8, type: 3}
       - {fileID: -1473223985, guid: 49de910741ecf3b43bbe071c2e227da8, type: 3}
-      m_AnimationSpeed: 1.5
+      m_AnimationSpeed: 1.5000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 4, y: -2, z: 0}
@@ -1008,7 +1008,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: 339043565, guid: 49de910741ecf3b43bbe071c2e227da8, type: 3}
       - {fileID: -2051873246, guid: 49de910741ecf3b43bbe071c2e227da8, type: 3}
-      m_AnimationSpeed: 1.5
+      m_AnimationSpeed: 1.5000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 4, y: 0, z: 0}
@@ -1275,7 +1275,7 @@ GameObject:
   - component: {fileID: 469081834}
   - component: {fileID: 469081832}
   - component: {fileID: 469081833}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -2233,6 +2233,7 @@ GameObject:
   - component: {fileID: 1172519804}
   - component: {fileID: 1172519803}
   - component: {fileID: 1172519807}
+  - component: {fileID: 1172519808}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2419,6 +2420,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1172519808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172519802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79c850e05ee162a45a99118856c7fca1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioS: {fileID: 1172519807}
+  isMusic: 0
+  isSFX: 1
 --- !u!1 &1304371511
 GameObject:
   m_ObjectHideFlags: 0
@@ -2654,7 +2670,7 @@ Tilemap:
       - {fileID: 1366536789, guid: ebb0eb74837eded48aebbb2bd0b125a9, type: 3}
       - {fileID: 1379915773, guid: ebb0eb74837eded48aebbb2bd0b125a9, type: 3}
       - {fileID: 640759112, guid: ebb0eb74837eded48aebbb2bd0b125a9, type: 3}
-      m_AnimationSpeed: 1.5000001
+      m_AnimationSpeed: 1.5
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 4, y: 2, z: 0}
@@ -2890,7 +2906,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1551505774}
   - component: {fileID: 1551505775}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}

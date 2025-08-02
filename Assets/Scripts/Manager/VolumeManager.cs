@@ -9,13 +9,11 @@ public class VolumeManager : MonoBehaviour
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
 
-    public static float masterVolume { get; private set; }
     public static float musicVolume { get; private set; }
     public static float sfxVolume { get; private set; }
 
     private void Start()
     {
-        float savedMaster = PlayerPrefs.GetFloat("MasterVolume", 1f);
         float savedMusic = PlayerPrefs.GetFloat("MusicVolume", 1f);
         float savedSFX = PlayerPrefs.GetFloat("SFXVolume", 1f);
 

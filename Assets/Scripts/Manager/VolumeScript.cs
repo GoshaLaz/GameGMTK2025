@@ -9,15 +9,31 @@ public class VolumeScript : MonoBehaviour
     [SerializeField] bool isSFX;
 
 
+    private void Awake()
+    {
+        if (isMusic)
+        {
+            audioS.volume = VolumeManager.musicVolume;
+        }
+        if (isSFX)
+        {
+            audioS.volume = VolumeManager.sfxVolume;
+        }
+
+        Debug.Log(VolumeManager.sfxVolume);
+    }
+
     private void FixedUpdate()
     {
         if (isMusic)
         {
-            audioS.volume = VolumeManager.musicVolume * VolumeManager.masterVolume;
+            audioS.volume = VolumeManager.musicVolume;
         }
         if (isSFX)
         {
-            audioS.volume = VolumeManager.sfxVolume * VolumeManager.masterVolume;
+            audioS.volume = VolumeManager.sfxVolume;
         }
+
+        Debug.Log(VolumeManager.sfxVolume);
     }
 }

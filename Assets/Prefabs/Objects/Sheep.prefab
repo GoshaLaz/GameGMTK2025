@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3959980504029652925}
   - component: {fileID: 9222279328403923987}
   - component: {fileID: 3535089043546729448}
+  - component: {fileID: 7330625898608998881}
   m_Layer: 8
   m_Name: Sheep
   m_TagString: Sheep
@@ -100,6 +101,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7330625898608998881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854854118640315240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f231095cbcf3ee47bd1298d8b85f161, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SFXObject: {fileID: 4841079309123971778, guid: 05fcca2677452894bba4e1d54d91cad0, type: 3}
+  radiusOfUse: 1
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  minTimeBtwSFX: 15
+  maxTimeBtwSFX: 20
+  minTimeBtwAnimation: 15
+  maxTimeBtwAnimation: 30
 --- !u!1 &8033507084172707708
 GameObject:
   m_ObjectHideFlags: 0

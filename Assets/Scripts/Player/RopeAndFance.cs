@@ -210,6 +210,7 @@ public class RopeAndFance : MonoBehaviour
     {
         GameObject newParticleSystem = Instantiate(buildParticleSystem, position, Quaternion.identity);
         Destroy(newParticleSystem, 10);
+
         GameObject newSFX = Instantiate(buildSFX, position, Quaternion.identity);
         Destroy(newSFX, 10);
     }
