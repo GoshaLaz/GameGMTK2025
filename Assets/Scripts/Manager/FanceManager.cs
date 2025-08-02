@@ -13,9 +13,16 @@ public class FanceManager : MonoBehaviour
 
     PolygonCollider2D checkArea;
 
+    private LevelChanger levelChanger;
+
     void Start()
     {
         checkArea = GetComponent<PolygonCollider2D>();
+
+        GameObject gm = GameObject.Find("Main Camera");
+        levelChanger = gm.GetComponent<LevelChanger>();
+        
+
     }
 
     public void Check(List<List<Vector2>> pointsOfFances)
@@ -55,8 +62,7 @@ public class FanceManager : MonoBehaviour
 
         if (count >= countOfSheeps)
         {
-            Debug.Log("Next lvl");
-            //Next Lvl
+            levelChanger.WinGame();
         }
     }
 }
