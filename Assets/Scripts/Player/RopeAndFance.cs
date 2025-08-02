@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
 public class RopeAndFance : MonoBehaviour
@@ -38,8 +39,14 @@ public class RopeAndFance : MonoBehaviour
     bool canPlaceFance;
     bool isAnimatingColor = false;
 
+
+    public Text ropeText;
+    public Text fanceText;
+
+
     void Start()
     {
+        ropeText.text = ropeLenght.ToString();
         fanceManager = GameObject.FindWithTag("FanceManager").GetComponent<FanceManager>();
         playerMovementScript = GetComponent<PlayerMove>();
         firstFance = true;
@@ -47,6 +54,8 @@ public class RopeAndFance : MonoBehaviour
 
     void Update()
     {
+        fanceText.text = countOfFances.ToString();
+
         if (ropeRender != null)
         {
             ropeRender.SetPosition(1, transform.position + new Vector3(0, 0.25f, 0));
@@ -187,6 +196,8 @@ public class RopeAndFance : MonoBehaviour
 
         currentDistance += Vector2.Distance(ropeRender.GetPosition(0), ropeRender.GetPosition(1));
 
+
+        ropeText.text = Mathf.Ceil(Mathf.Clamp(ropeLenght - currentDistance, 0, ropeLenght)).ToString();
         return ropeLenght >= currentDistance;
     }
 
