@@ -197,7 +197,8 @@ public class RopeAndFance : MonoBehaviour
         currentDistance += Vector2.Distance(ropeRender.GetPosition(0), ropeRender.GetPosition(1));
 
 
-        ropeText.text = Mathf.Ceil(Mathf.Clamp(ropeLenght - currentDistance, 0, ropeLenght)).ToString();
+        ropeText.text = (Mathf.Round(Mathf.Clamp(ropeLenght - currentDistance, 0, ropeLenght) * 10)/10f).ToString();
+        
         return ropeLenght >= currentDistance;
     }
 
