@@ -19,7 +19,13 @@ public class LevelUI : MonoBehaviour
 
     public void Undo()
     {
-        Debug.Log("Undo");
+        RopeAndFance player = GameObject.FindWithTag("Player").GetComponent<RopeAndFance>();
+        FanceManager fanceManager = GameObject.FindWithTag("FanceManager").GetComponent<FanceManager>();
+
+        if (!fanceManager.CanUndo()) return;
+
+        GameObject prevFance = fanceManager.GetPrevFance();
+        player.Undo(prevFance);
     }
 
     private void Update()

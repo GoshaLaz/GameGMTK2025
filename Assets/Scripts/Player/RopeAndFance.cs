@@ -9,6 +9,7 @@ public class RopeAndFance : MonoBehaviour
 {
     [Header("Fance")]
     [SerializeField] private int countOfFances;
+    [SerializeField] private Text fanceText;
     [Space(5)]
     [SerializeField] private GameObject fanceObject;
     [SerializeField] private float interactRadius;
@@ -17,6 +18,7 @@ public class RopeAndFance : MonoBehaviour
 
     [Header("Rope")]
     [SerializeField] private float ropeLenght;
+    [SerializeField] private Text ropeText;
     [Space(5)]
     [SerializeField] private Material ropeMaterial;
     [Space(5)]
@@ -26,6 +28,7 @@ public class RopeAndFance : MonoBehaviour
 
     [Header("Effects")]
     [SerializeField] private GameObject buildParticleSystem;
+    [SerializeField] private GameObject buildSFX;
 
     List<List<Vector2>> pointsOfFances = new List<List<Vector2>>();
 
@@ -39,11 +42,6 @@ public class RopeAndFance : MonoBehaviour
     bool canPlaceFance;
     bool isAnimatingColor = false;
 
-
-    public Text ropeText;
-    public Text fanceText;
-
-
     void Start()
     {
         ropeText.text = ropeLenght.ToString();
@@ -55,6 +53,9 @@ public class RopeAndFance : MonoBehaviour
     void Update()
     {
         fanceText.text = countOfFances.ToString();
+
+        float currentDistance = GetRopeLenght();
+        ropeText.text = (Mathf.Round(Mathf.Clamp(ropeLenght - currentDistance, 0, ropeLenght) * 10) / 10f).ToString();
 
         if (ropeRender != null)
         {
@@ -89,6 +90,8 @@ public class RopeAndFance : MonoBehaviour
 
                 pointsOfFances.Add(new List<Vector2>());
                 pointsOfFances[pointsOfFances.Count - 1].Add(transform.position + new Vector3(0, 0.25f, 0));
+
+                fanceManager.AddNewFance(firstFanceObject);
             }
             else if (firstFanceObject != null)
             {
@@ -141,15 +144,11 @@ public class RopeAndFance : MonoBehaviour
                     countOfFances--;
 
                     pointsOfFances[pointsOfFances.Count - 1].Add(transform.position + new Vector3(0, 0.25f, 0));
+
+                    fanceManager.AddNewFance(newFance);
                 }
             }
         }
-    }
-
-    void CreateParticleSystem(Vector2 position)
-    {
-        GameObject newParticleSystem = Instantiate(buildParticleSystem, position, Quaternion.identity);
-        Destroy(newParticleSystem, 10);
     }
 
     IEnumerator ChangeColor(Color endColor)
@@ -178,6 +177,23 @@ public class RopeAndFance : MonoBehaviour
         isAnimatingColor = false;
     }
 
+    float GetRopeLenght()
+    {
+        float currentDistance = 0;
+        foreach (List<Vector2> path in pointsOfFances)
+        {
+            for (int i = 1; i < path.Count; i++)
+            {
+                currentDistance += Vector2.Distance(path[i - 1], path[i]);
+            }
+        }
+
+        if (ropeRender != null)
+            currentDistance += Vector2.Distance(ropeRender.GetPosition(0), ropeRender.GetPosition(1));
+
+        return currentDistance;
+    }
+
     bool CanPlaceFance()
     {
         if (ropeRender == null) return true;
@@ -185,21 +201,17 @@ public class RopeAndFance : MonoBehaviour
         bool tochThing = Physics2D.Linecast(ropeRender.GetPosition(0), ropeRender.GetPosition(1), badLayer);
         if (tochThing) return false;
 
-        float currentDistance = 0;
-        foreach (List<Vector2> path in pointsOfFances)
-        {
-            for (int i = 1; i< path.Count; i++)
-            {
-                currentDistance += Vector2.Distance(path[i - 1], path[i]);
-            }
-        }
+        float currentDistance = GetRopeLenght();
 
-        currentDistance += Vector2.Distance(ropeRender.GetPosition(0), ropeRender.GetPosition(1));
-
-
-        ropeText.text = (Mathf.Round(Mathf.Clamp(ropeLenght - currentDistance, 0, ropeLenght) * 10)/10f).ToString();
-        
         return ropeLenght >= currentDistance;
+    }
+
+    void CreateParticleSystem(Vector2 position)
+    {
+        GameObject newParticleSystem = Instantiate(buildParticleSystem, position, Quaternion.identity);
+        Destroy(newParticleSystem, 10);
+        GameObject newSFX = Instantiate(buildSFX, position, Quaternion.identity);
+        Destroy(newSFX, 10);
     }
 
     void SetUpLineRender(LineRenderer lineRenderer)
@@ -210,6 +222,34 @@ public class RopeAndFance : MonoBehaviour
         lineRenderer.textureMode = LineTextureMode.Static;
         lineRenderer.startColor = Color.white;
         lineRenderer.endColor = Color.white;
+    }
+
+    public void Undo(GameObject lastFance)
+    {
+        countOfFances++;
+
+        int countOfPaths = pointsOfFances.Count;
+        int sizeOfPath = pointsOfFances[countOfPaths - 1].Count;
+        if (sizeOfPath == 1) pointsOfFances.RemoveAt(countOfPaths - 1);
+        else pointsOfFances[countOfPaths - 1].RemoveAt(sizeOfPath - 1);
+
+        if (lastFance == null)
+        {
+            isAnimatingColor = false;
+
+            ropeRender = null;
+            firstFanceObject = null;
+            firstFance = true;
+        }
+        else
+        {
+            ropeRender = lastFance.GetComponent<LineRenderer>();
+
+            Vector3 lastFancePosition = ropeRender.GetPosition(1);
+            transform.position = lastFancePosition - new Vector3(0, 0.25f, 0);
+
+            isAnimatingColor = false;
+        }
     }
 
     private void OnDrawGizmos()

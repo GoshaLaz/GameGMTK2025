@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -10,8 +11,12 @@ public class FanceManager : MonoBehaviour
     [SerializeField] private GameObject crossObject;
     [SerializeField] private Vector2 offset;
     [SerializeField] private float timeToDelete;
+    [Space]
+    [SerializeField] private GameObject wrongSFX;
 
     PolygonCollider2D checkArea;
+
+    List<GameObject> fancesOnScene = new List<GameObject>();
 
     void Start()
     {
@@ -41,6 +46,7 @@ public class FanceManager : MonoBehaviour
         filter.useLayerMask = true;
 
         int count = checkArea.OverlapCollider(filter, results);
+        bool foundWolf = false;
 
         foreach (Collider2D hit in results)
         {
@@ -48,15 +54,51 @@ public class FanceManager : MonoBehaviour
             {
                 GameObject crossAboveWolf = Instantiate(crossObject, hit.gameObject.transform.position + (Vector3)offset, Quaternion.identity);
                 Destroy(crossAboveWolf, timeToDelete);
-
-                return;
+                
+                foundWolf = true;
             }
+        }
+
+        if (foundWolf)
+        {
+            GameObject wrongSFXOnWolf = Instantiate(wrongSFX, Vector3.zero, Quaternion.identity);
+            Destroy(wrongSFXOnWolf, timeToDelete);
+
+            return;
         }
 
         if (count >= countOfSheeps)
         {
             Debug.Log("Next lvl");
             //Next Lvl
+        }
+    }
+
+    public void AddNewFance(GameObject newFance)
+    {
+        fancesOnScene.Add(newFance);
+    }
+
+    public bool CanUndo()
+    {
+        return fancesOnScene.Count > 0;
+    }
+
+    public GameObject GetPrevFance()
+    {
+        if (fancesOnScene.Count > 1) {
+            GameObject lastFance = fancesOnScene[fancesOnScene.Count - 1];
+            fancesOnScene.Remove(lastFance);
+            Destroy(lastFance);
+
+            return fancesOnScene[fancesOnScene.Count - 1];
+        } else
+        {
+            GameObject lastFance = fancesOnScene[fancesOnScene.Count - 1];
+            fancesOnScene.Remove(lastFance);
+            Destroy(lastFance);
+
+            return null;
         }
     }
 }
